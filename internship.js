@@ -82,7 +82,7 @@ function formatStipend(value) {
 }
 
 function renderInternships() {
-  const query = document.querySelector("#explorer-search").value.trim().toLower;
+  const query = document.querySelector("#explorer-search").value.trim().toLowerCase();
   const categoriesSelected = [...document.querySelectorAll('input[name="category"]:checked')].map(input => input.value);
   const mode = document.querySelector('input[name="mode"]:checked')?.value || "";
   const types = [...document.querySelectorAll('input[name="type"]:checked')].map(input => input.value);
@@ -90,7 +90,7 @@ function renderInternships() {
   const minimum = Number(document.querySelector("#stipend-range").value);
   const duration = document.querySelector("#duration-filter").value;
   let results = internships.filter(item => {
-    const haystack = `${item.role} ${item.company} ${item.category} ${item.skills.join(" ")}`.toLower;
+    const haystack = `${item.role} ${item.company} ${item.category} ${item.skills.join(" ")}`.toLowerCase();
     const matchesQuery = !query || haystack.includes(query);
     const matchesCategory = !categoriesSelected.length || categoriesSelected.includes(item.category);
     const matchesMode = !mode || item.mode === mode;
@@ -105,7 +105,7 @@ function renderInternships() {
   if (sort === "stipend") results.sort((a, b) => b.stipend - a.stipend);
   if (sort === "newest") results.sort((a, b) => b.postedRank - a.postedRank);
   if (sort === "relevance" && query) {
-    results.sort((a, b) => Number(`${a.role} ${a.skills.join(" ")}`.toLower.includes(query)) - Number(`${b.role} ${b.skills.join(" ")}`.toLower.includes(query)));
+    results.sort((a, b) => Number(`${a.role} ${a.skills.join(" ")}`.toLowerCase().includes(query)) - Number(`${b.role} ${b.skills.join(" ")}`.toLowerCase().includes(query)));
   }
 
   document.querySelector("#results-count").textContent = `${results.length} ${results.length === 1 ? "opportunity" : "opportunities"}`;
